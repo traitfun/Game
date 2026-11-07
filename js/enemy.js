@@ -13,7 +13,7 @@ var Enemy={
     return f>T.reach[0]&&f<T.reach[1]&&h.z<30&&h.inv<=0;
   },
   hurtHero:function(dmg){
-    var h=S.h;h.hp-=dmg;h.inv=HERO.hitInv;txt(h.x,GY-80,'-'+dmg,'#ff7b6e');S.sk=4;UI.hud();
+    var h=S.h;Sfx.play('hurt');h.hp-=dmg;h.inv=HERO.hitInv;txt(h.x,GY-80,'-'+dmg,'#ff7b6e');S.sk=4;UI.hud();
   },
   update:function(e,dt){
     var h=S.h,T=e.type,dx=h.x-e.x,dist=Math.abs(dx);
@@ -23,17 +23,17 @@ var Enemy={
       e.at+=dt;
       if(T.kind==='pouncer'){
         if(e.at>=T.windup&&e.at<T.pounceEnd){
-          e.x+=e.face*T.pounceSpeed*dt;
+          if(!e.pl){e.pl=true;Sfx.play('pounce')}e.x+=e.face*T.pounceSpeed*dt;
           if(!e.hit&&Enemy.reaches(e,T)){e.hit=true;Enemy.hurtHero(T.dmg)}
         }
       }else if(!e.hit&&e.at>=T.windup){
-        e.hit=true;if(Enemy.reaches(e,T))Enemy.hurtHero(T.dmg);
+        e.hit=true;Sfx.play('eswing');if(Enemy.reaches(e,T))Enemy.hurtHero(T.dmg);
       }
       if(e.at>=T.end){e.at=-1;e.cd=T.cd}
     }else{
       e.face=dx>0?1:-1;
       if(dist>T.engage){e.x+=e.face*T.speed*dt;e.w+=dt*T.walkRate}
-      else if(e.cd<=0){e.at=0;e.hit=false}
+      else if(e.cd<=0){e.at=0;e.hit=false;e.pl=false;if(T.kind==='pouncer')Sfx.play('growl')}
       else if(T.retreat)e.x-=e.face*T.retreat*dt;
     }
   },

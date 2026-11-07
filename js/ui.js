@@ -1,7 +1,17 @@
 /* Tampilan di luar canvas: bar nyawa, teks boon, overlay (loading / game over). */
 var UI={
   ov:null,
-  init:function(){UI.ov=document.getElementById('ov')},
+  init:function(){
+    UI.ov=document.getElementById('ov');
+    var b=document.getElementById('bm');
+    function show(){b.textContent=Sfx.on?'\ud83d\udd0a':'\ud83d\udd07'}
+    try{if(localStorage.getItem('mythraid_mute')==='1')Sfx.on=false}catch(e){}
+    show();
+    b.addEventListener('click',function(){
+      Sfx.on=!Sfx.on;try{localStorage.setItem('mythraid_mute',Sfx.on?'0':'1')}catch(e){}
+      show();Sfx.unlock();
+    });
+  },
   hud:function(){
     var h=S.h;
     document.getElementById('hpb').style.width=Math.max(0,h.hp/h.max*100)+'%';

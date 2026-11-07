@@ -8,6 +8,8 @@ var Input={
     return false;
   },
   init:function(){
+    window.addEventListener('pointerdown',Sfx.unlock,true);   // buka izin suara di sentuhan pertama
+    window.addEventListener('keydown',Sfx.unlock,true);
     var js=document.getElementById('js'),kn=document.getElementById('kn'),R=46,jid=null;
     function set(e){
       var r=js.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;

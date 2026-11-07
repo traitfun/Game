@@ -6,17 +6,17 @@ var Player={
   },
   attack:function(){
     var h=S.h;if(!ready||S.st!=='fight'||h.cr>0)return;
-    if(h.at<0||h.at>HERO.atk.cancelAfter){h.at=0;h.hit=false}
+    if(h.at<0||h.at>HERO.atk.cancelAfter){h.at=0;h.hit=false;Sfx.play('swing')}
   },
   jump:function(){var h=S.h;if(!ready||S.st!=='fight'||h.z>0||h.cr>0||h.at>=0)return;h.cr=HERO.crouchTime},
-  dash:function(){var h=S.h;if(!ready||S.st!=='fight'||h.dcd>0)return;h.dash=HERO.dashTime;h.dcd=HERO.dashCd;h.inv=HERO.dashInv;h.at=-1;S.ghost=[]},
+  dash:function(){var h=S.h;if(!ready||S.st!=='fight'||h.dcd>0)return;h.dash=HERO.dashTime;h.dcd=HERO.dashCd;h.inv=HERO.dashInv;h.at=-1;S.ghost=[];Sfx.play('dash')},
   doHit:function(){
     var h=S.h,A=HERO.atk;h.hit=true;
     for(var i=S.en.length-1;i>=0;i--){
       var e=S.en[i],dx=(e.x-h.x)*h.face;
       if(dx>A.reachBack&&dx<A.reachFront&&h.z<A.maxHeight){
         e.hp-=h.dmg;e.fl=.12;e.st=.3;e.at=-1;e.cd=Math.max(e.cd,.6);e.x+=h.face*14;
-        txt(e.x,GY-52,h.dmg,'#ffd37a');S.hs=.05;S.sk=3;
+        txt(e.x,GY-52,h.dmg,'#ffd37a');S.hs=.05;S.sk=3;Sfx.play(e.hp<=0?'kill':'hit');
         if(e.hp<=0){
           S.en.splice(i,1);
           if(h.ls){h.hp=Math.min(h.max,h.hp+h.ls);txt(h.x,GY-70,'+'+h.ls,'#7fd18a');UI.hud()}
@@ -30,8 +30,8 @@ var Player={
     if(mv)h.face=mv>0?1:-1;
     if(Input.stickJump())Player.jump();
     h.dcd=Math.max(0,h.dcd-dt);h.inv=Math.max(0,h.inv-dt);
-    if(h.cr>0){h.cr-=dt;if(h.cr<=0){h.vz=HERO.jumpV;h.z=.01}}
-    if(h.z>0){h.vz-=HERO.gravity*dt;h.z+=h.vz*dt;if(h.z<=0){h.z=0;h.vz=0;h.ld=HERO.landTime}}
+    if(h.cr>0){h.cr-=dt;if(h.cr<=0){h.vz=HERO.jumpV;h.z=.01;Sfx.play('jump')}}
+    if(h.z>0){h.vz-=HERO.gravity*dt;h.z+=h.vz*dt;if(h.z<=0){h.z=0;h.vz=0;h.ld=HERO.landTime;Sfx.play('land')}}
     h.ld=Math.max(0,h.ld-dt);
     var mag=Math.min(1,Math.abs(mv)*1.15),sp=h.spd*mag*(mv<0?-1:1);
     if(h.z<=0&&mv&&h.at<0&&h.dash<=0&&h.cr<=0)h.rt+=dt*mag*HERO.runRate;

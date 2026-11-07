@@ -22,10 +22,10 @@ function update(dt){
   Player.update(dt);
   while(S.sp<S.spawns.length&&S.t>=S.spawns[S.sp])Enemy.spawn(Math.max(0,Math.min(WW-VW,h.x-VW/2)));
   for(i=0;i<S.en.length;i++)Enemy.update(S.en[i],dt);
-  if(h.hp<=0){S.st='dead';UI.hud();UI.end('Kamu tumbang','Bertahan sampai gelombang '+S.wv+'.')}
+  if(h.hp<=0){S.st='dead';Sfx.play('lose');UI.hud();UI.end('Kamu tumbang','Bertahan sampai gelombang '+S.wv+'.')}
   else if(S.sp>=S.spawns.length&&S.en.length===0){
     S.wv++;h.hp=Math.min(h.max,h.hp+WAVES.healPerWave);
-    txt(h.x,GY-90,'Gelombang '+S.wv,'#e8a33d');UI.hud();genWave();
+    txt(h.x,GY-90,'Gelombang '+S.wv,'#e8a33d');Sfx.play('wave');UI.hud();genWave();
   }
 }
 function draw(){
