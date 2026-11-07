@@ -13,6 +13,7 @@ js/enemy.js           musuh: spawn dan AI (melee / pouncer)
 js/input.js           joystick analog, tombol layar, keyboard
 js/ui.js              bar nyawa, overlay (loading, game over)
 js/render.js          helper menggambar sprite
+js/audio.js           suara (dibuat oleh browser, tanpa file audio); tombol bisu di pojok kanan atas bar nyawa
 js/data/config.js     ukuran layar + stat dan animasi hero (setel rasa permainan di sini)
 js/data/enemies.js    data musuh (nyawa, kecepatan, jangkauan, frame)
 js/data/waves.js      aturan gelombang musuh
