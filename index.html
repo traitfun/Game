@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MYTHRAID</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<h1>MYTHRAID</h1>
+<div class="bar"><div class="hp"><i id="hpb"></i></div><div class="hpt" id="hpt">100/100</div></div>
+<div class="stage">
+<canvas id="c" width="960" height="540"></canvas>
+<div id="ov" style="display:flex"><h2>Memuat aset</h2></div>
+</div>
+<div class="ctl">
+<div id="js" aria-label="Joystick analog"><div id="kn"></div></div>
+<div class="acts">
+<button class="btn" id="bd">Dash</button>
+<button class="btn" id="bj">Loncat</button>
+<button class="btn atk" id="ba">Serang</button>
+</div>
+</div>
+<div class="boons" id="bn"></div>
+<div class="help">Joystick: geser kiri/kanan untuk jalan, tarik ke atas untuk loncat. Keyboard: A/D gerak, W loncat, J serang, K dash.</div>
+</main>
+<script src="js/data/config.js"></script>
+<script src="js/data/sprites.js"></script>
+<script src="js/data/enemies.js"></script>
+<script src="js/data/waves.js"></script>
+<script src="js/data/boons.js"></script>
+<script src="js/render.js"></script>
+<script src="js/input.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/player.js"></script>
+<script src="js/enemy.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
